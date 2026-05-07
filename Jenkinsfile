@@ -20,11 +20,16 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t test-automativelive1 .'
+            }
+        }
+
         stage('Run Container') {
             steps {
                 sh 'docker run --rm test-automativelive1'
             }
-        }
         }
     }
 }
