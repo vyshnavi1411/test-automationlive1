@@ -1,11 +1,22 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+
     stages {
 
         stage('Clone') {
             steps {
                 git 'https://github.com/vyshnavi1411/test-automationlive1.git'
+            }
+        }
+
+        stage('Check Docker') {
+            steps {
+                sh 'which docker'
+                sh 'docker --version'
             }
         }
 
@@ -23,7 +34,7 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                sh 'docker tag testautomationlive1 vyshnavi1411/test-automativelive1:v1'
+                sh 'docker tag test-automativelive1 vyshnavi1411/test-automativelive1:v1'
                 sh 'docker push vyshnavi1411/test-automativelive1:v1'
             }
         }
